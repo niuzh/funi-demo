@@ -3,11 +3,11 @@ package com.funi.demo.web.controller;
 import com.funi.demo.authority.domain.User;
 
 /**
- * @author zhihuan.niu on 2016/11/2.
+ * @author zhihuan.niu
  */
 public class BaseController {
     /**
-     * 返回当前登录用户
+     * 杩斿洖褰撳墠鐧诲綍鐢ㄦ埛
      * @return
      */
     protected User getCurrentUser(){
