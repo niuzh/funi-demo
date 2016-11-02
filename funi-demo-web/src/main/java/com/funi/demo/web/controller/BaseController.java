@@ -13,7 +13,7 @@ public class BaseController {
     protected User getCurrentUser(){
         User user=new User();
         user.setUserName("user");
-        user.setId("user");
+        user.setUserId(1);
         return user;
     }
 }
