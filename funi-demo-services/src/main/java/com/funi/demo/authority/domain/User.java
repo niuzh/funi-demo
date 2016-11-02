@@ -1,25 +1,55 @@
-package com.funi.demo.authority.domain;
+﻿package com.funi.demo.authority.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * �������-ʵ����
- * @author zhihuan.niu on 2016/11/1.
+ * 领域对象(实体类)-同时被持久层、业务层和展现层共享使用，最终持久化到数据库中
+ * 用户信息
+ * @author zhihuan.niu
  */
 public class User implements Serializable{
     //id
-    private String id;
-    //�û���
+    private Integer userId;
+    //用户名
     private String userName;
-    //�û�����
+    //用户密码
     private String password;
+    //积分
+    private Integer credits;
+    private String lastIp;
+    private Date lstVisit;
 
-    public String getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+    public String getLastIp() {
+        return lastIp;
+    }
+
+    public void setLastIp(String lastIp) {
+        this.lastIp = lastIp;
+    }
+
+    public Date getLstVisit() {
+        return lstVisit;
+    }
+
+    public void setLstVisit(Date lstVisit) {
+        this.lstVisit = lstVisit;
     }
 
     public String getUserName() {

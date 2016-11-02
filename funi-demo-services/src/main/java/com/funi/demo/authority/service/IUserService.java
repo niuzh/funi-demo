@@ -1,16 +1,29 @@
-package com.funi.demo.authority.service;
+ï»¿package com.funi.demo.authority.service;
 
 import com.funi.demo.authority.domain.User;
-import org.springframework.stereotype.Component;
 
 /**
- * @author zhihuan.niu on 2016/11/1.
+ * @author zhihuan.niu
  */
 public interface IUserService {
     /**
-     * ĞÂÔöÓÃ»§
-     * @param record         ĞÂÔö¼ÇÂ¼
-     * @param currentUser   µ±Ç°²Ù×÷ÈËÔ±
+     * æ£€æŸ¥ç”¨æˆ·åå¯†ç 
+     * @param userName
+     * @param password
+     * @return
      */
-    void createRecord(User record,User currentUser);
+    boolean hasMatchUser(String userName,String password);
+
+    /**
+     * æ ¹æ®ç”¨æˆ·ååŠ è½½ç”¨æˆ·
+     * @param userName
+     * @return
+     */
+    User findUserByUserName(String userName);
+
+    /**
+     * æ›´æ–°ç”¨æˆ·ç™»å½•ä¿¡æ¯
+     * @param user
+     */
+    void loginSuccess(User user);
 }

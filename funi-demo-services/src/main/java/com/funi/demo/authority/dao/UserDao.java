@@ -10,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @author zhihuan.niu on 2016/11/1.
+ * 持久层负责数据的访问和操作，被业务层调用
+ * @author zhihuan.niu
  */
 @Repository
 public class UserDao {
@@ -18,32 +19,38 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * 查询记录
-     * @param id
-     * @return
+     * 根据用户名和密码获取匹配的用户数
      */
-    public User selectRecordById(final String id){
-        String sql="select * from user where user_name=?";
+    public int getMatchCount(String userName,String password){
+        String sqlStr="select count(1) from t_user "
+                +" where user_name=? and password=?";
+        return jdbcTemplate.queryForInt(sqlStr,new Object[]{userName,password});
+    }
+
+    /**
+     * 根据用户名获取user对象
+     */
+    public User findUserByUserName(final String userName){
+        String sqlStr="select user_id,user_name,credits "
+                +" from t_user where user_name=?";
         final User user=new User();
-        jdbcTemplate.query(sql, new Object[]{id},
-                new RowCallbackHandler() {
-                    @Override
-                    public void processRow(ResultSet resultSet) throws SQLException {
-                        user.setId(id);
-                        user.setUserName(resultSet.getString("user_name"));
-                        user.setPassword(resultSet.getString("password"));
-                    }
-                });
+        jdbcTemplate.query(sqlStr, new Object[]{userName}, new RowCallbackHandler() {//匿名内部类
+            @Override
+            public void processRow(ResultSet rs) throws SQLException {
+                user.setUserId(rs.getInt("user_id"));
+                user.setUserName(userName);
+                user.setCredits(rs.getInt("credits"));
+            }
+        });
         return user;
     }
 
     /**
-     * 新增记录
-     * @param record
+     * 更新用户登录信息
      */
-    public void insertRecord(User record){
-        String sql="insert into t_user(id,user_name,password) values(?,?,?)";
-        Object[] args={record.getId(),record.getUserName(),record.getPassword()};
-        jdbcTemplate.update(sql,args);
+    public void updateLoginInfo(User user){
+        String sqlStr="update t_user set last_visit=?,last_ip=?,credit=? "
+                +" where user_id=?";
+        jdbcTemplate.update(sqlStr,new Object[]{user.getLstVisit(),user.getLastIp(),user.getCredits(),user.getUserId()});
     }
 }

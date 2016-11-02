@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author zhihuan.niu
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
     /**
      * µÇÂ¼Ò³Ãæ
      * @return
