@@ -1,7 +1,7 @@
-DROP DATABASE if EXISTS demo;
+ï»¿DROP DATABASE if EXISTS demo;
 CREATE DATABASE demo DEFAULT CHARACTER SET utf8;
 USE demo;
-# ÓÃ»§±í
+# ç”¨æˆ·è¡¨
 CREATE TABLE t_user(
   user_id int AUTO_INCREMENT PRIMARY KEY ,
   user_name VARCHAR(30),
@@ -10,7 +10,7 @@ CREATE TABLE t_user(
   last_visit DATETIME,
   last_ip VARCHAR(23)
 )ENGINE=innoDB;
-# ÓÃ»§µÇÂ¼ÈÕÖ¾±í
+# ç”¨æˆ·ç™»å½•æ—¥å¿—è¡¨
 CREATE TABLE t_login_log(
   login_log_id int AUTO_INCREMENT PRIMARY KEY ,
   user_id INT,
