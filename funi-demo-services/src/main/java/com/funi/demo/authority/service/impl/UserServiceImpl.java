@@ -6,7 +6,6 @@ import com.funi.demo.authority.domain.LoginLog;
 import com.funi.demo.authority.domain.User;
 import com.funi.demo.authority.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -55,7 +54,7 @@ public class UserServiceImpl implements IUserService {
         LoginLog loginLog=new LoginLog();
         loginLog.setUserId(user.getUserId());
         loginLog.setIp(user.getLastIp());
-        loginLog.setLoginDate(user.getLstVisit());
+        loginLog.setLoginDate(user.getLastVisit());
         userDao.updateLoginInfo(user);
         loginLogDao.insertLoginLog(loginLog);
     }

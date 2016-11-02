@@ -49,8 +49,8 @@ public class UserDao {
      * 更新用户登录信息
      */
     public void updateLoginInfo(User user){
-        String sqlStr="update t_user set last_visit=?,last_ip=?,credit=? "
+        String sqlStr="update t_user set last_visit=?,last_ip=?,credits=? "
                 +" where user_id=?";
-        jdbcTemplate.update(sqlStr,new Object[]{user.getLstVisit(),user.getLastIp(),user.getCredits(),user.getUserId()});
+        jdbcTemplate.update(sqlStr,new Object[]{user.getLastVisit(),user.getLastIp(),user.getCredits(),user.getUserId()});
     }
 }

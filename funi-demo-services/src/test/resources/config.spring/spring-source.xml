@@ -12,7 +12,11 @@
                      http://www.springframework.org/schema/tx
                      http://www.springframework.org/schema/tx/spring-tx.xsd
                      http://www.springframework.org/schema/aop
-                     http://www.springframework.org/schema/tx/spring-aop.xsd">
+                     http://www.springframework.org/schema/tx/spring-aop-3.2.xsd
+                     http://www.springframework.org/schema/mvc
+                     http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                     http://www.springframework.org/schema/jee
+                     http://www.springframework.org/schema/jee/spring-jee.xsd">
     <!--扫描dao类包，应用Spring的注解配置-->
     <context:component-scan base-package="com.funi.demo.*.dao"/>
     <!--扫描service类包，应用Spring的注解配置-->
@@ -38,14 +42,7 @@
         </tx:attributes>
     </tx:advice>
     <!--通过aop配置提供事务增强,让service包下所有的Bean的所有方法拥有事务-->
-    <!-- Spring AOP config
-        解释一下(* com.evan.crm.service.*.*(..))中几个通配符的含义：
-        第一个 * —— 通配 任意返回值类型
-        第二个 * —— 通配 包com.evan.crm.service下的任意class
-        第三个 * —— 通配 包com.evan.crm.service下的任意class的任意方法
-        第四个 .. —— 通配 方法可以有0个或多个参数
-     -->
-    <aop:config>
+    <aop:config proxy-target-class="true">
         <aop:pointcut id="servicePointcut" expression="execution(* com.funi.demo.*.*.*ServiceImpl.*(..))"/>
         <aop:advisor advice-ref="txAdvice" order="1" pointcut-ref="servicePointcut"/>
     </aop:config>

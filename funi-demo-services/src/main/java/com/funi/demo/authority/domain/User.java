@@ -18,7 +18,7 @@ public class User implements Serializable{
     //积分
     private Integer credits;
     private String lastIp;
-    private Date lstVisit;
+    private Date lastVisit;
 
     public Integer getUserId() {
         return userId;
@@ -44,12 +44,12 @@ public class User implements Serializable{
         this.lastIp = lastIp;
     }
 
-    public Date getLstVisit() {
-        return lstVisit;
+    public Date getLastVisit() {
+        return lastVisit;
     }
 
-    public void setLstVisit(Date lstVisit) {
-        this.lstVisit = lstVisit;
+    public void setLastVisit(Date lastVisit) {
+        this.lastVisit = lastVisit;
     }
 
     public String getUserName() {

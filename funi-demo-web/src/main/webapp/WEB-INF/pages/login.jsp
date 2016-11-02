@@ -1,4 +1,5 @@
 ﻿<%--
+作为登录页面和登录失败响应页面
 @author zhihuan.niu
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -8,7 +9,18 @@
     <title>demo</title>
 </head>
 <body>
-  <form action="<c:url value="/j-spring-security-check"/>" method="post">
+<c:if test="${!empty error}">
+    <font color="red"><c:out value="${error}"/> </font>
+</c:if>
+  <form action="<c:url value="/loginCheck"/>" method="post">
+      用户名：
+      <input type="text" name="userName">
+      <br>
+      密 码：
+      <input type="password" name="password">
+      <br>
+      <input type="submit" value="登录"/>
+      <input type="reset" value="重置"/>
   </form>
 </body>
 </html>

@@ -12,11 +12,15 @@
                      http://www.springframework.org/schema/tx
                      http://www.springframework.org/schema/tx/spring-tx.xsd
                      http://www.springframework.org/schema/aop
-                     http://www.springframework.org/schema/tx/spring-aop.xsd">
-    <!--扫描dao-->
+                     http://www.springframework.org/schema/tx/spring-aop-3.2.xsd
+                     http://www.springframework.org/schema/mvc
+                     http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                     http://www.springframework.org/schema/jee
+                     http://www.springframework.org/schema/jee/spring-jee.xsd">
+    <!--扫描dao类包，应用Spring的注解配置-->
     <context:component-scan base-package="com.funi.demo.*.dao"/>
-    <!--扫描service-->
-    <context:component-scan base-package="com.funi.demo.*.service"/>
+    <!--扫描service类包，应用Spring的注解配置-->
+    <context:component-scan base-package="com.funi.demo.*.service.impl"/>
     <!--数据源-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
@@ -27,7 +31,7 @@
     <!--jdbc模板bean-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
           p:dataSource-ref="dataSource"/>
-    <!--配置事务-->
+    <!--配置事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource"/>
     <!--声明式事务-->
@@ -37,9 +41,9 @@
             <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
-    <!--aop 实现-->
-    <aop:config>
-        <aop:pointcut id="servicePointcut" expression="within(com.funi..service..*ServiceImpl)"/>
+    <!--通过aop配置提供事务增强,让service包下所有的Bean的所有方法拥有事务-->
+    <!--<aop:config proxy-target-class="true">
+        <aop:pointcut id="servicePointcut" expression="execution(* com.funi.demo.*.*.*ServiceImpl.*(..))"/>
         <aop:advisor advice-ref="txAdvice" order="1" pointcut-ref="servicePointcut"/>
-    </aop:config>
+    </aop:config>-->
 </beans>
