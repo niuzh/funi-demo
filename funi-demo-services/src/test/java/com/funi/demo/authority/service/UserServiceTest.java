@@ -1,15 +1,16 @@
 package com.funi.demo.authority.service;
 
-import static org.junit.Assert.*;
 import com.funi.demo.authority.domain.User;
-import com.funi.demo.authority.service.impl.UserServiceImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * 单元测试类包和程序的类包对应
@@ -20,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath*:config.spring/spring-*.xml",//数据源配置
 })
 public class UserServiceTest {
-    protected static final Log logger = LogFactory.getLog(UserServiceTest.class);
+    protected static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
     @Autowired
     private IUserService userService;
     @Test//标注为测试方法
@@ -32,8 +33,6 @@ public class UserServiceTest {
     }
     @Test
     public void findUserByUserName(){
-        logger.debug("debug");
-        logger.info("info");
         User user=userService.findUserByUserName("admin");
         assertEquals(user.getUserName(),"admin");
     }

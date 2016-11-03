@@ -5,6 +5,8 @@ import com.funi.demo.authority.dao.UserDao;
 import com.funi.demo.authority.domain.LoginLog;
 import com.funi.demo.authority.domain.User;
 import com.funi.demo.authority.service.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class UserServiceImpl implements IUserService {
     private UserDao userDao;
     @Autowired
     private LoginLogDao loginLogDao;
-
+    protected static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
      * 检查用户名密码
      *
@@ -40,6 +42,14 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User findUserByUserName(String userName) {
+        logger.debug("findUserByUserName debug");
+        logger.info("findUserByUserName info");
+        try {
+            throw new NullPointerException("NullPointerException");
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
         return userDao.findUserByUserName(userName);
     }
 

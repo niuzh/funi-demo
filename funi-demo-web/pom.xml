@@ -102,7 +102,7 @@
                     <webResources>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>src/main/web</directory>
+                            <directory>src/main/webapp</directory>
                         </resource>
                     </webResources>
                     <warName>demo</warName>

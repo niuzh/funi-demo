@@ -13,12 +13,12 @@
                      http://www.springframework.org/schema/jee
                      http://www.springframework.org/schema/jee/spring-jee.xsd">
     <!--扫描web类包，应用Spring的注解配置-->
-    <context:component-scan base-package="com.funi.demo.web.controller"/>
+    <context:component-scan base-package="com.funi.**.controller" use-default-filters="false">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
     <!--配置视图解析器 视图名到具体视图的隐射-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"
           p:prefix="/WEB-INF/pages/"
           p:suffix=".jsp"/>
-    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
-    <mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
 </beans>

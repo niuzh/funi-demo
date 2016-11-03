@@ -3,8 +3,8 @@ package com.funi.demo.web.controller;
 import com.funi.demo.authority.domain.User;
 import com.funi.demo.authority.service.IUserService;
 import com.funi.demo.web.command.LoginCommand;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +21,25 @@ import java.util.Date;
 public class LoginController extends BaseController{
     @Autowired
     private IUserService userService;
-    protected static final Log logger = LogFactory.getLog(LoginController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     /*
     * ModelAndView 包括视图信息和渲染视图的模型数据信息
     * 数据模型对象放置到request的属性中
     * */
 
+    /**
+     * 登录页面
+     * @return
+     */
+    @RequestMapping("/")
+    public ModelAndView index(HttpServletRequest request){
+        logger.debug("debug start login");
+        if(request.getSession().getAttribute("user")!=null){
+            return new ModelAndView("main");
+        }else {
+            return new ModelAndView("login");
+        }
+    }
     /**
      * 登录页面
      * @return
