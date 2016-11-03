@@ -8,10 +8,10 @@
     <!--加载Spring配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:config.spring/spring-*.xml</param-value>
+        <param-value>classpath*:config.spring/spring-*.xml</param-value><!--多个文件可以用逗号，空格分开-->
     </context-param>
     <!--启动Spring 容器监听器-->
-    <listener><!--多个文件可以用逗号，空格分开-->
+    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <!--Spring MVC 主控Servlet-->
