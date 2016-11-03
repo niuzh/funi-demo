@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)//指定测试运行器
 @ContextConfiguration({//指定Spring配置文件
-        "classpath*:/spring-source.xml",//数据源配置
+        "classpath*:config.spring/spring-*.xml",//数据源配置
 })
 public class UserServiceTest {
     @Autowired
