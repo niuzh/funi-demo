@@ -1,5 +1,15 @@
-﻿DROP DATABASE if EXISTS demo;
+﻿#新增用户
+mysql -uroot -pNiu*2016
+delete from user where user='demo';
+FLUSH PRIVILEGES;
+create user 'demo'@'%' identified by 'Niu*2016';
+grant all on *.* to 'demo'@'%';
+#新用户的登陆
+mysql -udemo -pNiu*2016
+#新增数据库
+DROP DATABASE if EXISTS demo;
 CREATE DATABASE demo DEFAULT CHARACTER SET utf8;
+
 USE demo;
 # 用户表
 CREATE TABLE t_user(

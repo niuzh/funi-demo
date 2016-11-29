@@ -45,7 +45,9 @@
             <!-- 本地环境 -->
             <id>local</id>
             <properties>
-                <package.name>local</package.name>
+                <db_url>jdbc:mysql://127.0.0.1:3306/demo</db_url>
+                <db_username>demo</db_username>
+                <db_password>Niu*2016</db_password>
             </properties>
         </profile>
         <profile>
