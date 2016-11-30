@@ -7,19 +7,26 @@ import com.funi.demo.authority.domain.User;
 import com.funi.demo.authority.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 /**
  * 业务类 通过配置享受声明式事务的好处
  * @author zhihuan.niu
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService ,ApplicationContextAware{
     @Autowired
     private UserDao userDao;
     @Autowired
     private LoginLogDao loginLogDao;
+    private ApplicationContext applicationContext;
     protected static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
      * 检查用户名密码
@@ -30,8 +37,11 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public boolean hasMatchUser(String userName, String password) {
-        int matchCount=userDao.getMatchCount(userName,password);
-        return matchCount>0;
+        int matchCount = userDao.getMatchCount(userName, password);
+        if (matchCount > 0) {
+            return true;
+        }
+        throw new RuntimeException(applicationContext.getMessage("user_err", null, Locale.SIMPLIFIED_CHINESE));
     }
 
     /**
@@ -44,13 +54,11 @@ public class UserServiceImpl implements IUserService {
     public User findUserByUserName(String userName) {
         logger.debug("findUserByUserName debug");
         logger.info("findUserByUserName info");
-        try {
-            throw new NullPointerException("NullPointerException");
-        }catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+        User user= userDao.findUserByUserName(userName);
+        if(user==null){
+            throw new RuntimeException(applicationContext.getMessage("user_not",new String[]{userName}, Locale.SIMPLIFIED_CHINESE));
         }
-        return userDao.findUserByUserName(userName);
+        return user;
     }
 
     /**
@@ -67,5 +75,10 @@ public class UserServiceImpl implements IUserService {
         loginLog.setLoginDate(user.getLastVisit());
         userDao.updateLoginInfo(user);
         loginLogDao.insertLoginLog(loginLog);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext=applicationContext;
     }
 }

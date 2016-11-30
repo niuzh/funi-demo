@@ -59,16 +59,20 @@ public class LoginController extends BaseController{
      */
     @RequestMapping("/loginCheck")
     public ModelAndView loginCheck(HttpServletRequest request,LoginCommand command){
-        boolean isValidUser=userService.hasMatchUser(command.getUserName(), command.getPassword());
-        if(isValidUser){
-            User user=userService.findUserByUserName(command.getUserName());
-            user.setLastIp(request.getRemoteAddr());
-            user.setLastVisit(new Date());
-            userService.loginSuccess(user);
-            request.getSession().setAttribute("user",user);
-            return new ModelAndView("main");
-        }else{
-            return new ModelAndView("login","error","用户名或密码错误。");
+        ModelAndView modelAndView=new ModelAndView();
+        try {
+            boolean isValidUser=userService.hasMatchUser(command.getUserName(), command.getPassword());
+            if(isValidUser){
+                User user=userService.findUserByUserName(command.getUserName());
+                user.setLastIp(request.getRemoteAddr());
+                user.setLastVisit(new Date());
+                userService.loginSuccess(user);
+                request.getSession().setAttribute("user", user);
+                modelAndView.setViewName("main");
+            }
+        }catch (Exception e){
+            modelAndView= new ModelAndView("login","error",e.getMessage());
         }
+        return modelAndView;
     }
 }
