@@ -11,6 +11,7 @@
     <modules>
         <module>funi-demo-services</module>
         <module>funi-demo-web</module>
+        <module>funi-deom-mbg</module>
     </modules>
     <properties>
         <project.version>1.0-SNAPSHOT</project.version>
@@ -18,7 +19,7 @@
         <spring.version>3.2.9.RELEASE</spring.version>
         <spring.security.version>3.2.7.RELEASE</spring.security.version>
         <!-- orm -->
-        <mybatis.version>3.2.7</mybatis.version>
+        <mybatis.version>3.4.2</mybatis.version>
         <!-- 辅助依赖包 -->
         <cglib.version>2.2</cglib.version>
         <aspectj.version>1.7.1</aspectj.version>
@@ -71,6 +72,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <!--mybatis-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.3.1</version>
         </dependency>
         <!--aop配置-->
         <dependency>

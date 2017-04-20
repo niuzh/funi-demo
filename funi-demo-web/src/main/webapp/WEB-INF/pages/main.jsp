@@ -15,6 +15,6 @@
     <link type="text/css" rel="stylesheet" href="css/resources/theme-classic-all.css"/>
 </head>
 <body>
-${user.userName}，欢迎你，您的当前积分为${user.credits};
+${user.name}，欢迎你;
 </body>
 </html>

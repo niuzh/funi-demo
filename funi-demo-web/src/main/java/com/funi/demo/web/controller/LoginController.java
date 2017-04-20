@@ -1,7 +1,7 @@
 package com.funi.demo.web.controller;
 
-import com.funi.demo.authority.domain.User;
-import com.funi.demo.authority.service.IUserService;
+import com.funi.demo.mbg.dto.User;
+import com.funi.demo.service.IUserService;
 import com.funi.demo.web.command.LoginCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,8 +64,8 @@ public class LoginController extends BaseController{
             boolean isValidUser=userService.hasMatchUser(command.getUserName(), command.getPassword());
             if(isValidUser){
                 User user=userService.findUserByUserName(command.getUserName());
-                user.setLastIp(request.getRemoteAddr());
-                user.setLastVisit(new Date());
+                user.setLastLoginIp(request.getRemoteAddr());
+                user.setLastLoginDate(new Date());
                 userService.loginSuccess(user);
                 request.getSession().setAttribute("user", user);
                 modelAndView.setViewName("main");

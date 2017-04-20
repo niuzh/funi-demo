@@ -1,6 +1,6 @@
 package com.funi.demo.web.controller;
 
-import com.funi.demo.authority.domain.User;
+import com.funi.demo.mbg.dto.User;
 
 /**
  * @author zhihuan.niu
@@ -12,8 +12,8 @@ public class BaseController {
      */
     protected User getCurrentUser(){
         User user=new User();
-        user.setUserName("user");
-        user.setUserId(1);
+        user.setName("user");
+        user.setId("1");
         return user;
     }
 }

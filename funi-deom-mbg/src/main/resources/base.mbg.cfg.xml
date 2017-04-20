@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="mbg.cfg.properties"></properties>
+    <context id="basic" targetRuntime="MyBatis3"
+             defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <property name="overwrite" value="true"/>
+
+        <plugin type="com.funi.demo.mbg.DemoPlugin" />
+        <commentGenerator type="com.funi.demo.mbg.CommentGenerator"/>
+
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.funi.demo.mbg.dto"
+                            targetProject="./funi-demo-services/src/main/java">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.demo.supports.BasicDto"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.funi.demo.mbg.dao.mapper"
+                         targetProject="./funi-demo-services/src/main/java"/>
+        <javaClientGenerator targetPackage="com.funi.demo.mbg.dao"
+                             targetProject="./funi-demo-services/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="t_user" domainObjectName="User"> </table>
+
+    </context>
+</generatorConfiguration>

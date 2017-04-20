@@ -1,6 +1,6 @@
-package com.funi.demo.authority.service;
+package com.funi.demo.service;
 
-import com.funi.demo.authority.domain.User;
+import com.funi.demo.mbg.dto.User;
 
 /**
  * @author zhihuan.niu

@@ -133,7 +133,7 @@ Ext.define('app.demo.Main', {
     __createMenuStore:function(){
         var root;
         Ext.Ajax.request({
-            url: '/demo/user/authority',
+            url: '/demo/user/mbg',
             async: false,
             success: function (response) {
                 var result = Ext.util.JSON.decode(response.responseText);

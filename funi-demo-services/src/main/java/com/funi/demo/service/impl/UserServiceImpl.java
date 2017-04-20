@@ -1,19 +1,20 @@
-package com.funi.demo.authority.service.impl;
+package com.funi.demo.service.impl;
 
-import com.funi.demo.authority.dao.LoginLogDao;
-import com.funi.demo.authority.dao.UserDao;
-import com.funi.demo.authority.domain.LoginLog;
-import com.funi.demo.authority.domain.User;
-import com.funi.demo.authority.service.IUserService;
+import com.funi.demo.mbg.dao.UserMapper;
+import com.funi.demo.mbg.dto.User;
+import com.funi.demo.mbg.dto.UserExample;
+import com.funi.demo.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -21,11 +22,9 @@ import java.util.Locale;
  * @author zhihuan.niu
  */
 @Service
-public class UserServiceImpl implements IUserService ,ApplicationContextAware{
+public class UserServiceImpl implements IUserService,ApplicationContextAware{
     @Autowired
-    private UserDao userDao;
-    @Autowired
-    private LoginLogDao loginLogDao;
+    private UserMapper userMapper;
     private ApplicationContext applicationContext;
     protected static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
@@ -37,7 +36,11 @@ public class UserServiceImpl implements IUserService ,ApplicationContextAware{
      */
     @Override
     public boolean hasMatchUser(String userName, String password) {
-        int matchCount = userDao.getMatchCount(userName, password);
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria =example.createCriteria();
+        criteria.andNameEqualTo(userName);
+        criteria.andPasswordEqualTo(password);
+        long matchCount = userMapper.countByExample(example);
         if (matchCount > 0) {
             return true;
         }
@@ -54,11 +57,14 @@ public class UserServiceImpl implements IUserService ,ApplicationContextAware{
     public User findUserByUserName(String userName) {
         logger.debug("findUserByUserName debug");
         logger.info("findUserByUserName info");
-        User user= userDao.findUserByUserName(userName);
-        if(user==null){
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria =example.createCriteria();
+        criteria.andNameEqualTo(userName);
+        List<User> userList= userMapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(userList)){
             throw new RuntimeException(applicationContext.getMessage("user_not",new String[]{userName}, Locale.SIMPLIFIED_CHINESE));
         }
-        return user;
+        return userList.get(0);
     }
 
     /**
@@ -68,13 +74,9 @@ public class UserServiceImpl implements IUserService ,ApplicationContextAware{
      */
     @Override
     public void loginSuccess(User user) {
-        user.setCredits(user.getCredits()+5);
-        LoginLog loginLog=new LoginLog();
-        loginLog.setUserId(user.getUserId());
-        loginLog.setIp(user.getLastIp());
-        loginLog.setLoginDate(user.getLastVisit());
-        userDao.updateLoginInfo(user);
-        loginLogDao.insertLoginLog(loginLog);
+        user.setLastLoginDate(new Date());
+        user.setSysUpdateTime(new Date());
+        userMapper.updateByPrimaryKey(user);
     }
 
     @Override
