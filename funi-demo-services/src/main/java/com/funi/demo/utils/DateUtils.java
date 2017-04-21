@@ -1,4 +1,4 @@
-package com.funi.demo.util;
+package com.funi.demo.utils;
 
 import org.joda.time.DateTime;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author zhihuan.niu on 2016/11/3.
  */
-public class DateUtil {
+public class DateUtils {
     private static String formatDay="yyyy-MM-dd";
     public static String formatTimeStamp="yyyy-MM-dd HH:mm:ss";
     public static String getDateStr(Date date,String format) {

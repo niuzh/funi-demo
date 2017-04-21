@@ -1,4 +1,4 @@
-package com.funi.demo.util;
+package com.funi.demo.utils;
 
 import org.junit.Test;
 

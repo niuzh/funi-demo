@@ -6,9 +6,9 @@ package com.funi.demo.supports;
  */
 public class PageableQuery {
     //开始页码从1开始
-    private int pageNum;
+    private int pageNum=1;
     //每页大小
-    private int pageSize;
+    private int pageSize=10;
     //默认关键字
     private String keyword;
 

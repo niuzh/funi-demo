@@ -1,0 +1,8 @@
+使用方法
+1 点击 Run/Debug Configurations 配置
+2 添加Application
+	Main class 选择 com.funi.demo.mbg.StartUp
+	Progarm arguments:输入需要运行的配置 如basic
+	Use classpath of model：选择funi-demo-mbg
+3 生成代码是直接运行配置的application
+4 代码会生成domain类，Example辅助类，待扩展的Mapper接口，xml文件

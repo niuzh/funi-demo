@@ -16,6 +16,44 @@
     <context:component-scan base-package="com.funi.**.controller" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
+    <!--rest-->
+    <bean id="handlerExceptionResolver" class="com.funi.demo.web.supports.ExceptionHandler"/>
+    <bean id="jsonConverter" class="com.funi.demo.web.supports.RestResultConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="dateFormat">
+                    <bean class="java.text.SimpleDateFormat">
+                        <constructor-arg value="yyyy-MM-dd HH:mm:ss"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <constructor-arg name="defaultCharset" value="UTF-8"></constructor-arg>
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="jsonConverter"/>
+            </list>
+        </property>
+    </bean>
     <!--配置视图解析器 视图名到具体视图的隐射-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"

@@ -3,6 +3,7 @@ package com.funi.demo.web.controller;
 import com.funi.demo.mbg.dto.User;
 import com.funi.demo.service.IUserService;
 import com.funi.demo.web.command.LoginCommand;
+import com.funi.demo.web.supports.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.Date;
  * @author zhihuan.niu
  */
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
     @Autowired
     private IUserService userService;
     protected static final Logger logger = LoggerFactory.getLogger(LoginController.class);

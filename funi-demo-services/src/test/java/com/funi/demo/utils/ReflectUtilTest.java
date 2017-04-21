@@ -1,4 +1,4 @@
-package com.funi.demo.util;
+package com.funi.demo.utils;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 public class ReflectUtilTest {
     @Test
     public void test()throws Exception{
-        Date date=new DateUtil().getStartDate(new Date());
+        Date date=new DateUtils().getStartDate(new Date());
         System.out.println(date);
         //通过类装载器获得对象
         ClassLoader loader=Thread.currentThread().getContextClassLoader();
@@ -21,10 +21,10 @@ public class ReflectUtilTest {
         System.out.println("currentLoader getParent:"+loader.getParent());
         System.out.println("currentLoader getParent getParent:"+loader.getParent().getParent());
         //clazz 反射对象描述类语义结构
-        Class clazz=loader.loadClass("com.funi.demo.util.DateUtil");
+        Class clazz=loader.loadClass("com.funi.demo.utils.DateUtils");
         //获得对象的构造器并实例化
         Constructor cons=clazz.getDeclaredConstructor((Class[]) null);
-        DateUtil util=(DateUtil)cons.newInstance();
+        DateUtils util=(DateUtils)cons.newInstance();
         //通过反射调用方法
         Method method=clazz.getMethod("getStartDate",Date.class);
         Date startDate=(Date)method.invoke(util,new Date());

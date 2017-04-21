@@ -1,11 +1,12 @@
-package com.funi.demo.web.controller;
+package com.funi.demo.web.supports;
 
 import com.funi.demo.mbg.dto.User;
 
 /**
+ * controller基类
  * @author zhihuan.niu
  */
-public class BaseController {
+public abstract class BaseController {
     /**
      * 返回当前登录用户
      * @return
