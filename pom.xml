@@ -11,7 +11,7 @@
     <modules>
         <module>funi-demo-services</module>
         <module>funi-demo-web</module>
-        <module>funi-deom-mbg</module>
+        <module>funi-demo-mbg</module>
     </modules>
     <properties>
         <project.version>1.0-SNAPSHOT</project.version>
