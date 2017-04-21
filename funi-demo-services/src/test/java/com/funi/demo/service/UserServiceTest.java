@@ -2,10 +2,16 @@ package com.funi.demo.service;
 
 import com.funi.demo.BaseTest;
 import com.funi.demo.mbg.dto.User;
+import com.funi.demo.query.UserQuery;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +34,16 @@ public class UserServiceTest extends BaseTest{
     @Test
     public void findUserByUserName(){
         User user=userService.findUserByUserName("admin");
-        assertEquals(user.getName(),"admin");
+        assertEquals(user.getName(), "admin");
+    }
+    @Test
+    public void findUserListPage(){
+        UserQuery query=new UserQuery();
+        query.setPageNum(2);
+        query.setPageSize(5);
+        PageHelper.startPage(query.getPageNum(),query.getPageSize());
+        List<User> list=userService.findUserList(query);
+        PageInfo page = new PageInfo(list);
+        logger.info(page.getTotal()+"");
     }
 }

@@ -1,6 +1,10 @@
 package com.funi.demo.service;
 
 import com.funi.demo.mbg.dto.User;
+import com.funi.demo.query.UserQuery;
+import com.funi.demo.supports.PageableQuery;
+
+import java.util.List;
 
 /**
  * @author zhihuan.niu
@@ -26,4 +30,10 @@ public interface IUserService {
      * @param user
      */
     void loginSuccess(User user);
+
+    /**
+     * 返回用户
+     * @return
+     */
+    List<User> findUserList(UserQuery query);
 }

@@ -3,7 +3,9 @@ package com.funi.demo.service.impl;
 import com.funi.demo.mbg.dao.UserMapper;
 import com.funi.demo.mbg.dto.User;
 import com.funi.demo.mbg.dto.UserExample;
+import com.funi.demo.query.UserQuery;
 import com.funi.demo.service.IUserService;
+import com.funi.demo.supports.PageableQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -77,6 +79,11 @@ public class UserServiceImpl implements IUserService,ApplicationContextAware{
         user.setLastLoginDate(new Date());
         user.setSysUpdateTime(new Date());
         userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public List<User> findUserList(UserQuery query) {
+        return userMapper.selectByExample(new UserExample());
     }
 
     @Override
