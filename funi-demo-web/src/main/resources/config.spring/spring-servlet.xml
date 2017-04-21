@@ -54,6 +54,13 @@
             </list>
         </property>
     </bean>
+    <!--分页参数解析器-->
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="com.funi.demo.web.supports.PageMethodArgumentResolver" />
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
     <!--配置视图解析器 视图名到具体视图的隐射-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"

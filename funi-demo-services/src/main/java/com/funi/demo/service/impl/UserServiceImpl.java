@@ -6,6 +6,9 @@ import com.funi.demo.mbg.dto.UserExample;
 import com.funi.demo.query.UserQuery;
 import com.funi.demo.service.IUserService;
 import com.funi.demo.supports.PageableQuery;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -83,7 +86,9 @@ public class UserServiceImpl implements IUserService,ApplicationContextAware{
 
     @Override
     public List<User> findUserList(UserQuery query) {
-        return userMapper.selectByExample(new UserExample());
+
+        List<User> list= userMapper.selectByExample(new UserExample());
+        return list;
     }
 
     @Override

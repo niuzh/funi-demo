@@ -1,4 +1,4 @@
-package com.funi.demo.web.supports;// Created by doukun on 2017/4/13 .
+package com.funi.demo.web.supports;
 
 public class RestResult<T> {
     private final boolean success;
