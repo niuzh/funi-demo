@@ -26,7 +26,10 @@ public class RestResultConverter extends MappingJackson2HttpMessageConverter {
             RestResult result;
             if(object instanceof List){
                 PageInfo page = new PageInfo((List)object);
-                result=new RestListResult(page.getList(),page.getTotal());
+                PagingList pagingList=new PagingList();
+                pagingList.setList((List)object);
+                pagingList.setTotal(page.getTotal());
+                result=new RestResult(pagingList);
             } else if (object instanceof RestMessageResult) {
                 result = (RestMessageResult) object;
             }else {

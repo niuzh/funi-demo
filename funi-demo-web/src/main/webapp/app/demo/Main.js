@@ -1,7 +1,8 @@
 Ext.define('app.demo.Main', {
     extend: 'Ext.Viewport',
     layout: 'border',
-    uses : [
+    requires:  [
+        'app.demo.view.UserListView'
     ],
     initComponent: function () {
         var me = this;
@@ -71,9 +72,10 @@ Ext.define('app.demo.Main', {
                     xtype: 'tabpanel',
                     enableTabScroll:true,
                     deferredRender:false,
-                    items:[{
-                        title:'首页',
-                    }]
+                    items:[
+                        {
+                         xtype:'userList'
+                        }]
                 }
             ],
             listeners:{
@@ -133,7 +135,7 @@ Ext.define('app.demo.Main', {
     __createMenuStore:function(){
         var root;
         Ext.Ajax.request({
-            url: '/demo/user/mbg',
+            url: '/demo/user/list',
             async: false,
             success: function (response) {
                 var result = Ext.util.JSON.decode(response.responseText);
