@@ -12,7 +12,7 @@
     <script charset="utf-8" language="javascript" src="js/ext-all.js"></script>
     <script charset="utf-8" language="javascript" src="js/ext-locale-zh_CN.js"></script>
     <script charset="utf-8" language="javascript" src="js/app.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/resources/theme-classic-all.css"/>
+    <link type="text/css" rel="stylesheet" href="css/theme-classic/theme-classic-all.css"/>
 </head>
 <body>
 ${user.name}，欢迎你;
