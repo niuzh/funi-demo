@@ -64,7 +64,7 @@ public class CommentGenerator implements org.mybatis.generator.api.CommentGenera
     }
 
     protected String getDateString() {
-        return this.suppressDate ? null : new Date().toString();
+        return this.suppressDate ? null : null;//new Date().toString();
     }
 
     public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {

@@ -16,7 +16,7 @@ import java.util.List;
  * @author zhihuan.niu on 2017/4/21.
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/User")
 public class UserController extends BaseController {
     @Autowired
     private IUserService userService;

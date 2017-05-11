@@ -13,7 +13,7 @@
         <property name="overwrite" value="true"/>
 
         <plugin type="com.funi.demo.mbg.DemoPlugin" />
-        <commentGenerator type="com.funi.demo.mbg.CommentGenerator"/>
+        <!--<commentGenerator type="com.funi.demo.mbg.CommentGenerator"/>-->
 
         <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
                         userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">

@@ -14,10 +14,10 @@
 </c:if>
   <form action="<c:url value="/loginCheck"/>" method="post">
       用户名：
-      <input type="text" name="userName">
+      <input type="text" name="userName" value="admin">
       <br>
       密 码：
-      <input type="password" name="password">
+      <input type="password" name="password" value="123456">
       <br>
       <input type="submit" value="登录"/>
       <input type="reset" value="重置"/>

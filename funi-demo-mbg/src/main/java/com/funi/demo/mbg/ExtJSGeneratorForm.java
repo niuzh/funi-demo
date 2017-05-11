@@ -1,18 +1,16 @@
 package com.funi.demo.mbg;
 
-import org.mybatis.generator.api.IntrospectedColumn;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.ProgressCallback;
-import org.mybatis.generator.config.ColumnOverride;
-import org.mybatis.generator.config.Configuration;
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.api.*;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.NullProgressCallback;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -31,15 +29,23 @@ public class ExtJSGeneratorForm extends JFrame {
     private JComboBox comboBoxResource;
     private JComboBox comboBoxTable;
     private JComboBox comboBoxCode;
+    private JTextField textFieldFileName;
+    private JButton btnClipboard;
     private JTextArea textArea;
     private Map<String,IntrospectedTable> map=new HashMap<>();
-    private static final String packagePrefix="app.demo";
+    List<GeneratedJavaFile> generatedJavaFiles=new ArrayList<>();
+    List<GeneratedXmlFile> generatedXmlFiles=new ArrayList<>();
+    //todo 根据app项目名修改
+    private static final String packagePrefix="demo";
     public ExtJSGeneratorForm() throws IOException, XMLParserException {
         this.setLayout(new BorderLayout());
         this.panelHeader =new JPanel();
         comboBoxResource =new JComboBox();
         comboBoxTable =new JComboBox();
         comboBoxCode =new JComboBox();
+        btnClipboard =new JButton("复制代码");
+        textFieldFileName=new JTextField();
+        textFieldFileName.setColumns(10);
         panelHeader.setLayout(new FlowLayout());
         panelHeader.add(new JLabel("资源文件"));
         panelHeader.add(comboBoxResource);
@@ -47,12 +53,23 @@ public class ExtJSGeneratorForm extends JFrame {
         panelHeader.add(comboBoxTable);
         panelHeader.add(new JLabel("代码"));
         panelHeader.add(comboBoxCode);
+        panelHeader.add(textFieldFileName);
+        panelHeader.add(btnClipboard);
         comboBoxCode.addItem("清空");
-        comboBoxCode.addItem("Model");
-        comboBoxCode.addItem("Store");
+        comboBoxCode.addItem("Example");
+        comboBoxCode.addItem("Dto");
+        comboBoxCode.addItem("Mapper");
+        comboBoxCode.addItem("Mapper.XML");
+        comboBoxCode.addItem("ExtJSModel");
+        comboBoxCode.addItem("ExtJSStore");
         this.getContentPane().add("North", this.panelHeader);
         textArea=new JTextArea();
-        getContentPane().add(textArea);
+        JScrollPane jScrollPane=new JScrollPane(textArea);
+        jScrollPane.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        getContentPane().add(jScrollPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);//让窗体居中显示
         File[] files = new File(this.getClass().getClassLoader().getResource(".").getPath()).listFiles();
@@ -88,19 +105,91 @@ public class ExtJSGeneratorForm extends JFrame {
                 String selectedItem=comboBoxCode.getSelectedItem().toString();
                 String selectedTable=comboBoxTable.getSelectedItem().toString();
                 IntrospectedTable introspectedTable=map.get(selectedTable);
-                String text="";
+                String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+                String text="/**\n" +
+                        " * @author 工具自动生成\n" +
+                        " */\n";
                 if("清空".equals(selectedItem)){
                     textArea.setText("");
+                    objectName+="";
                 }
-                if("Model".equals(selectedItem)){
-                    text = getModelString(introspectedTable);
+                if("Example".equals(selectedItem)){
+                    text += getExampleString(introspectedTable);
+                    objectName+="Example";
                 }
-                if("Store".equals(selectedItem)){
-                    text = getStoreString(introspectedTable);
+                if("Dto".equals(selectedItem)){
+                    text += getDtoString(introspectedTable);
+                    objectName+="";
+                }
+                if("Mapper".equals(selectedItem)){
+                    text += getMapperString(introspectedTable);
+                    objectName+="Mapper";
+                }
+                if("Mapper.XML".equals(selectedItem)){
+                    text = getMapperXMLString(introspectedTable);
+                    objectName+="Mapper.xml";
+                }
+                if("ExtJSModel".equals(selectedItem)){
+                    text += getModelString(introspectedTable);
+                    objectName+="Model";
+                }
+                if("ExtJSStore".equals(selectedItem)){
+                    text += getStoreString(introspectedTable);
+                    objectName+="Store";
                 }
                 textArea.setText(text);
+                textFieldFileName.setText(objectName);
             }
         });
+        btnClipboard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Transferable trandata = new StringSelection(textArea.getText());
+                clipboard.setContents(trandata, null);
+            }
+        });
+    }
+
+    private String getExampleString(IntrospectedTable introspectedTable) {
+        String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+        String text="";
+        for (GeneratedJavaFile javaFile:generatedJavaFiles){
+            if(javaFile.getCompilationUnit().getType().getShortName().equals(objectName+"Example")){
+                text=javaFile.toString();
+            }
+        }
+        return text;
+    }
+    private String getDtoString(IntrospectedTable introspectedTable) {
+        String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+        String text="";
+        for (GeneratedJavaFile javaFile:generatedJavaFiles){
+            if(javaFile.getCompilationUnit().getType().getShortName().equals(objectName)){
+                text=javaFile.toString();
+            }
+        }
+        return text;
+    }
+    private String getMapperString(IntrospectedTable introspectedTable) {
+        String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+        String text="";
+        for (GeneratedJavaFile javaFile:generatedJavaFiles){
+            if(javaFile.getCompilationUnit().getType().getShortName().equals(objectName+"Mapper")){
+                text=javaFile.toString();
+            }
+        }
+        return text;
+    }
+    private String getMapperXMLString(IntrospectedTable introspectedTable) {
+        String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+        String text="";
+        for (GeneratedXmlFile javaFile:generatedXmlFiles){
+            if(javaFile.getFileName().equals(objectName+"Mapper.xml")){
+                text=javaFile.toString();
+            }
+        }
+        return text;
     }
 
     /**
@@ -110,8 +199,9 @@ public class ExtJSGeneratorForm extends JFrame {
      */
     private String getModelString(IntrospectedTable introspectedTable) {
         String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
-        String text="Ext.define('"+packagePrefix+".model."+objectName+"Model', {\n" +
-                "\textend: 'Ext.data.Model',\n";
+        String text="Ext.define('"+packagePrefix+".model."+objectName+"', {\n" +
+                "\textend: 'Ext.data.Model',\n"+
+                "\talias: 'model."+objectName+"',\n";
         if(introspectedTable.getPrimaryKeyColumns().size()>0) {
             text+="\tidProperty: '" + introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty() + "',\n";
         }
@@ -138,24 +228,25 @@ public class ExtJSGeneratorForm extends JFrame {
      */
     private String getStoreString(IntrospectedTable introspectedTable) {
         String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
-        String text="Ext.define('"+packagePrefix+".model."+objectName+"Model', {\n" +
-                "\textend: 'Ext.data.Model',\n";
-        if(introspectedTable.getPrimaryKeyColumns().size()>0) {
-            text+="\tidProperty: '" + introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty() + "',\n";
-        }
-        text+="\tfields: [\n";
-        for (IntrospectedColumn columnOverride:introspectedTable.getAllColumns()) {
-            String type = columnOverride.getFullyQualifiedJavaType().getShortName().toLowerCase();
-            String property = columnOverride.getJavaProperty();
-            if (type.equals("date")) {
-                text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: '" + type + "',dateFormat:'Y-m-d H:i:s'},\n";
-            } else if (type.equals("integer")) {
-                text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: 'int'},\n";
-            } else {
-                text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: '" + type + "'},\n";
-            }
-        }
-        text+="\t]\n" +
+        String text="Ext.define('"+packagePrefix+".store."+objectName+"', {\n" +
+                "\textend: 'Ext.data.Store',\n"+
+                "\talias: 'store."+objectName+"',\n"+
+                "\trequires: '"+packagePrefix+".model."+objectName+"',\n"+
+                "\tmodel: '"+packagePrefix+".model."+objectName+"',\n"+
+                "\tpageSize:10,\n"+
+                "\tautoLoad:true,\n"+
+                "\tproxy:{\n" +
+                "\t        actionMethods:'post',\n" +
+                "\t        type:'ajax',\n" +
+                "\t        api:{\n" +
+                "\t            read:'/demo/"+objectName+"/list'\n" +
+                "\t        },\n" +
+                "\t        reader:{\n" +
+                "\t            type:'json',\n" +
+                "\t            rootProperty:'result.list',\n" +
+                "\t            totalProperty: 'result.total'\n" +
+                "\t        }\n" +
+                "\t    }\n" +
                 "});";
         return text;
     }
@@ -171,7 +262,16 @@ public class ExtJSGeneratorForm extends JFrame {
         map.clear();
         comboBoxTable.removeAllItems();
         ProgressCallback callback = new NullProgressCallback();
+        generatedJavaFiles.clear();
+        generatedXmlFiles.clear();
         for (Context context:contextList){
+            PluginConfiguration pluginConfiguration=new PluginConfiguration();
+            pluginConfiguration.setConfigurationType("com.funi.demo.mbg.DemoPlugin");
+            context.addPluginConfiguration(pluginConfiguration);
+            CommentGeneratorConfiguration commentGeneratorConfiguration=new CommentGeneratorConfiguration();
+            commentGeneratorConfiguration.setConfigurationType("com.funi.demo.mbg.CommentGenerator");
+            context.setCommentGeneratorConfiguration(commentGeneratorConfiguration);
+            context.addProperty("suppressDate","true");
             context.introspectTables(callback, warnings, null);
             Field file=context.getClass().getDeclaredField("introspectedTables");
             file.setAccessible(true);
@@ -181,6 +281,8 @@ public class ExtJSGeneratorForm extends JFrame {
                 comboBoxTable.addItem(tableName);
                 map.put(tableName,introspectedTable);
             }
+            context.generateFiles(callback, generatedJavaFiles,
+                    generatedXmlFiles, warnings);
         }
     }
 

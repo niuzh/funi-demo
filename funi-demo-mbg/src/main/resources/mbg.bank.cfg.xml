@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="bank.cfg.properties"></properties>
+    <!-- 公共 commons -->
+    <context id="commons" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.commons.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.commons.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="fib_workflow" domainObjectName="Workflow" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="fib_config" domainObjectName="Config" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+    </context>
+
+    <!-- 账户 finance -->
+    <context id="finance" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.finance.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.finance.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="fib_real_account" domainObjectName="RealAccount" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="account_type"
+                            javaType="com.funi.fix.bank.services.finance.commons.ERealAccountType"/>
+            <columnOverride column="account_status"
+                            javaType="com.funi.fix.bank.services.finance.commons.EAccountStatus"/>
+            <columnOverride column="balance" javaType="double"/>
+            <columnOverride column="remarks" javaType="java.lang.String"/>
+        </table>
+        <table tableName="fib_real_account_details" domainObjectName="RealAccountDetails" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="deal_type" javaType="com.funi.fix.bank.services.finance.commons.EDealType"/>
+            <columnOverride column="period_amount" javaType="double"/>
+            <columnOverride column="balance" javaType="double"/>
+        </table>
+        <table tableName="fib_virtual_account" domainObjectName="VirtualAccount" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="balance" javaType="double"/>
+            <columnOverride column="perpay_amount" javaType="double"/>
+            <columnOverride column="account_type"
+                            javaType="com.funi.fix.bank.services.finance.commons.EVirtualAccountType"/>
+            <columnOverride column="account_status"
+                            javaType="com.funi.fix.bank.services.finance.commons.EAccountStatus"/>
+            <columnOverride column="interest_accrual" javaType="double"/>
+            <columnOverride column="building_area" javaType="double"/>
+        </table>
+        <table tableName="fib_virtual_account_details" domainObjectName="VirtualAccountDetails"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="deal_type" javaType="com.funi.fix.bank.services.finance.commons.EDealType"/>
+            <columnOverride column="period_amount" javaType="double"/>
+            <columnOverride column="balance" javaType="double"/>
+        </table>
+        <table tableName="fib_virtual_account_history" domainObjectName="VirtualAccountHistory"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="account_type"
+                            javaType="com.funi.fix.bank.services.finance.commons.EVirtualAccountType"/>
+        </table>
+
+        <table tableName="FIX_FUNDS_LOG" domainObjectName="FundsLog"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="PERIOD_TOTAL" javaType="double"/>
+            <columnOverride column="RECEIVABLE" javaType="double"/>
+        </table>
+        <table tableName="FIX_FUNDS_LOG_ITEMS" domainObjectName="FundsLogItems"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="PERIOD_TOTAL" javaType="double"/>
+        </table>
+        <table tableName="FIB_INCOME" domainObjectName="Income"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="result" javaType="com.funi.fix.bank.services.finance.commons.EIncomeStatus"></columnOverride>
+            <columnOverride column="income_Type" javaType="com.funi.fix.bank.services.finance.commons.EIncomeType"></columnOverride>
+        </table>
+        <table tableName="FIB_FIX_REAL_ACCOUNT" domainObjectName="FixRealAccount"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+
+    <!-- 通知单 notice -->
+    <context id="notice" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.notice.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.notice.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="fib_notices_index" domainObjectName="NoticesIndex" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="command_word" javaType="int"/>
+            <columnOverride column="notice_status" javaType="com.funi.fix.bank.services.notices.commons.ENoticeStatus"/>
+            <columnOverride column="package_json" javaType="String"/>
+            <columnOverride column="deal_amount" javaType="double"/>
+        </table>
+        <table tableName="fib_notices_confirm" domainObjectName="NoticesConfirm" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="command_word" javaType="int"/>
+            <columnOverride column="package_json" javaType="String"/>
+        </table>
+    </context>
+
+    <!-- 权限 authority -->
+    <context id="authority" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.authority.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.authority.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="fib_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="fib_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="fib_user_role_rel" domainObjectName="UserRoleRel" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="fib_authority" domainObjectName="Authority" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FIB_ROLE_AUTHORITY_REL" domainObjectName="RoleAuthorityRel" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="fib_resource" domainObjectName="Resource" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FIB_AUTHORIRY_RESOURCE_REL" domainObjectName="AuthorityResourceRel"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FIB_USER_PWD" domainObjectName="UserPwd" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+    </context>
+
+    <!-- 业务 business -->
+    <context id="business" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.business.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.business.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="FIB_ENTRY_BOOK" domainObjectName="EntryBook"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FIB_ACCOUNT_NOTICE" domainObjectName="AccountNotice" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FIB_INCREMENT" domainObjectName="Increment" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+    </context>
+    <!-- 业务 退款 -->
+    <context id="refund" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.refund.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.refund.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="FIB_REFUND" domainObjectName="Refund"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="deal_Type" javaType="com.funi.fix.bank.services.finance.commons.ECoreDealType"/>
+            <columnOverride column="replied" javaType="com.funi.fix.bank.services.refund.commons.ERefundReplied"/>
+            <columnOverride column="reply_result" javaType="com.funi.fix.bank.services.refund.commons.ERefundResult"/>
+        </table>
+    </context>
+    <!-- 业务 代收 -->
+    <context id="agency" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.agency.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="resources.config.mappers" targetProject="src"/>
+        <javaClientGenerator targetPackage="com.funi.fix.bank.services.dao.agency.mapper"
+                             targetProject="src" type="XMLMAPPER"/>
+        <table tableName="FIB_AGENCY_TRANSFER" domainObjectName="AgencyTransfer"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" enableCountByExample="false"/>
+        <table tableName="FIB_AGENCY_NOTICE" domainObjectName="AgencyNotice" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
+    </context>
+    <!--增值-->
+    <context id="increment" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF8"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${mybatisGenerator.driverClass}" connectionURL="${mybatisGenerator.connectionURL}"
+                        userId="${mybatisGenerator.userId}" password="${mybatisGenerator.password}">
+            <property name="remarksReporting" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.funi.fix.bank.services.dao.increment.domains"
+                            targetProject="src">
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.funi.ccs.framework.domain.BaseBean"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.funi.fix.bank.services.dao.increment.mapper"
+                         targetProject="src"/>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.funi.fix.bank.services.dao.increment.mapper" targetProject="src"/>
+        <table tableName="FIB_INCREMENT" domainObjectName="Increment"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="E_STORE_YEAR" javaType="com.funi.fix.bank.services.increment.common.EStoreYear"></columnOverride>
+            <columnOverride column="E_STORE_TYPE" javaType="com.funi.fix.bank.services.increment.common.EStoreType"></columnOverride>
+            <columnOverride column="E_INCREMENT_STATUS" javaType="com.funi.fix.bank.services.increment.common.EStoreState"></columnOverride>
+        </table>
+        <table tableName="FIB_INCREMENT_DETAIL" domainObjectName="IncrementDetail"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+    </context>
+</generatorConfiguration>
