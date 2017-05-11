@@ -218,6 +218,8 @@ public class ExtJSGeneratorForm extends JFrame {
                 text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: '" + type + "',dateFormat:'Y-m-d H:i:s'},\n";
             } else if (type.equals("integer")) {
                 text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: 'int'},\n";
+            }else if (type.equals("bigdecimal")||type.equals("double")) {
+                text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: 'number'},\n";
             } else {
                 text += "\t\t{name: '" + property + "',mapping: '" + property + "',  type: '" + type + "'},\n";
             }
@@ -243,7 +245,7 @@ public class ExtJSGeneratorForm extends JFrame {
                 text += "\t\t{text: '"+remarks+"', dataIndex: '"+property+"',flex:1, xtype: 'datecolumn',format: 'Y-m-d H:i:s'},\n";
             } else if (type.equals("integer")) {
                 text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1,xtype: 'numbercolumn',align:'right',},\n";
-            }else if (type.equals("double")) {
+            }else if (type.equals("bigdecimal")||type.equals("double")) {
                 text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1,xtype: 'numbercolumn', format:'0.00',align:'right',},\n";
             } else {
                 text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1},\n";
