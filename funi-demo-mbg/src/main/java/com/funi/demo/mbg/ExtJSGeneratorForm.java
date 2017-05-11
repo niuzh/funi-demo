@@ -62,6 +62,7 @@ public class ExtJSGeneratorForm extends JFrame {
         comboBoxCode.addItem("Mapper.XML");
         comboBoxCode.addItem("ExtJSModel");
         comboBoxCode.addItem("ExtJSStore");
+        comboBoxCode.addItem("ExtJSGridColumns");
         this.getContentPane().add("North", this.panelHeader);
         textArea=new JTextArea();
         JScrollPane jScrollPane=new JScrollPane(textArea);
@@ -136,6 +137,10 @@ public class ExtJSGeneratorForm extends JFrame {
                 if("ExtJSStore".equals(selectedItem)){
                     text += getStoreString(introspectedTable);
                     objectName+="Store";
+                }
+                if("ExtJSGridColumns".equals(selectedItem)){
+                    text = getGridColumnsString(introspectedTable);
+                    objectName+="";
                 }
                 textArea.setText(text);
                 textFieldFileName.setText(objectName);
@@ -221,6 +226,32 @@ public class ExtJSGeneratorForm extends JFrame {
                 "});";
         return text;
     }
+
+    /**
+     * 获取GridColumnsStringJS字符串
+     * @param introspectedTable
+     * @return
+     */
+    private String getGridColumnsString(IntrospectedTable introspectedTable) {
+        String objectName = introspectedTable.getTableConfiguration().getDomainObjectName();
+        String text="\tcolumns: [\n";
+        for (IntrospectedColumn columnOverride:introspectedTable.getAllColumns()) {
+            String type = columnOverride.getFullyQualifiedJavaType().getShortName().toLowerCase();
+            String property = columnOverride.getJavaProperty();
+            String remarks=columnOverride.getRemarks();
+            if (type.equals("date")) {
+                text += "\t\t{text: '"+remarks+"', dataIndex: '"+property+"',flex:1, xtype: 'datecolumn',format: 'Y-m-d H:i:s'},\n";
+            } else if (type.equals("integer")) {
+                text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1,xtype: 'numbercolumn',align:'right',},\n";
+            }else if (type.equals("double")) {
+                text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1,xtype: 'numbercolumn', format:'0.00',align:'right',},\n";
+            } else {
+                text += "\t\t{text: '" + remarks + "',dataIndex: '" + property + "',flex:1},\n";
+            }
+        }
+        text+="\t]\n";
+        return text;
+    }
     /**
      * 获取StoreJS字符串
      * @param introspectedTable
@@ -289,7 +320,8 @@ public class ExtJSGeneratorForm extends JFrame {
     public static void main(String[] args) throws IOException, XMLParserException {
         ExtJSGeneratorForm from=new ExtJSGeneratorForm();
         from.pack();
-        from.setSize(800, 600);
+        from.setSize(1280, 600);
+        from.setLocation(10,10);
         from.setVisible(true);
     }
 }
