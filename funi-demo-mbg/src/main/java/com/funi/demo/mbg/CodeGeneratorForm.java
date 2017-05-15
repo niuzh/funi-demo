@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * @author zhihuan.niu on 2017/4/26.
  */
-public class ExtJSGeneratorForm extends JFrame {
+public class CodeGeneratorForm extends JFrame {
     private JPanel panelHeader;
     private JComboBox comboBoxResource;
     private JComboBox comboBoxTable;
@@ -35,9 +35,9 @@ public class ExtJSGeneratorForm extends JFrame {
     private Map<String,IntrospectedTable> map=new HashMap<>();
     List<GeneratedJavaFile> generatedJavaFiles=new ArrayList<>();
     List<GeneratedXmlFile> generatedXmlFiles=new ArrayList<>();
-    //todo 根据app项目名修改
+    //todo 根据app项目名修改 针对ExtJS
     private static final String packagePrefix="demo";
-    public ExtJSGeneratorForm() throws IOException, XMLParserException {
+    public CodeGeneratorForm() throws IOException, XMLParserException {
         this.setLayout(new BorderLayout());
         this.panelHeader =new JPanel();
         comboBoxResource =new JComboBox();
@@ -320,7 +320,7 @@ public class ExtJSGeneratorForm extends JFrame {
     }
 
     public static void main(String[] args) throws IOException, XMLParserException {
-        ExtJSGeneratorForm from=new ExtJSGeneratorForm();
+        CodeGeneratorForm from=new CodeGeneratorForm();
         from.pack();
         from.setSize(1280, 600);
         from.setLocation(10,10);
