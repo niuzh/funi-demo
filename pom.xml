@@ -31,7 +31,7 @@
     <!-- 指定Maven仓库 -->
     <repositories>
         <!-- 公司的maven仓库 -->
-        <repository>
+        <!--<repository>
             <id>funiRepository</id>
             <name>local private nexus</name>
             <url>http://gitlab.funi.com/nexus/content/groups/public/</url>
@@ -41,7 +41,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository>-->
     </repositories>
 
     <dependencies>

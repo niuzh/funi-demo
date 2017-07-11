@@ -37,6 +37,7 @@
         </javaClientGenerator>
 
         <table tableName="t_user" domainObjectName="User"> </table>
+        <table tableName="t_login_rec" domainObjectName="LoginRec"> </table>
 
     </context>
 </generatorConfiguration>

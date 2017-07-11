@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService,ApplicationContextAware{
     public boolean hasMatchUser(String userName, String password) {
         UserExample example=new UserExample();
         UserExample.Criteria criteria =example.createCriteria();
-        criteria.andNameEqualTo(userName);
+        criteria.andUserNameEqualTo(userName);
         criteria.andPasswordEqualTo(password);
         long matchCount = userMapper.countByExample(example);
         if (matchCount > 0) {
@@ -64,7 +64,7 @@ public class UserServiceImpl implements IUserService,ApplicationContextAware{
         logger.info("findUserByUserName info");
         UserExample example=new UserExample();
         UserExample.Criteria criteria =example.createCriteria();
-        criteria.andNameEqualTo(userName);
+        criteria.andUserNameEqualTo(userName);
         List<User> userList= userMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(userList)){
             throw new RuntimeException(applicationContext.getMessage("user_not",new String[]{userName}, Locale.SIMPLIFIED_CHINESE));

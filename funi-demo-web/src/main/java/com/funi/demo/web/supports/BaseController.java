@@ -13,7 +13,7 @@ public abstract class BaseController {
      */
     protected User getCurrentUser(){
         User user=new User();
-        user.setName("user");
+        user.setUserName("user");
         user.setId("1");
         return user;
     }

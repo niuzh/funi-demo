@@ -50,6 +50,6 @@
     <script id="microloader" data-app="aeb5dca7-3dd1-4375-8dc6-2a8a7dfed9ae" type="text/javascript" src="bootstrap.js"></script>
 </head>
 <body>
-${user.name}，欢迎你;
+${user.userName}，欢迎你;
 </body>
 </html>

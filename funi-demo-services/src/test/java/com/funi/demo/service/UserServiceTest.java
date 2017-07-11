@@ -34,7 +34,7 @@ public class UserServiceTest extends BaseTest{
     @Test
     public void findUserByUserName(){
         User user=userService.findUserByUserName("admin");
-        assertEquals(user.getName(), "admin");
+        assertEquals(user.getUserName(), "admin");
     }
     @Test
     public void findUserListPage(){

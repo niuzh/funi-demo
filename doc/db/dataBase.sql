@@ -1,12 +1,12 @@
 ﻿#新增用户
-mysql -uroot -pNiu*2016
+mysql -uroot -pNiu*2017
 # 如果存在用户则删除，删除都刷新权限
 delete from user where user='demo';
 FLUSH PRIVILEGES;
-create user 'demo'@'%' identified by 'Niu*2016';
+create user 'demo'@'%' identified by 'Niu*2017';
 grant all on *.* to 'demo'@'%';
 #新用户的登陆
-mysql -udemo -pNiu*2016
+mysql -udemo -pNiu*2017
 #新增数据库
 DROP DATABASE if EXISTS demo;
 CREATE DATABASE demo DEFAULT CHARACTER SET utf8;
@@ -63,5 +63,5 @@ create table t_user
 );
 
 alter table t_user comment '用户';
-INSERT INTO t_user(id,name,password) VALUES (uuid(),'admin','123456');
+INSERT INTO t_user(id,user_name,password) VALUES (uuid(),'admin','123456');
 COMMIT ;
