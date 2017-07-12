@@ -1,0 +1,5 @@
+1 启动zookeeper
+/home/niu/Documents/tool/zookeeper-3.4.6/bin/zkServer.sh start
+2 下载dubbo-admin-2.4.1.war包，在Linux的tomcat部署，先把dubbo-admin-2.4.1放在tomcat的webapps/ROOT下
+3 将服务提供方或者使用方部署在另外一台服务器
+

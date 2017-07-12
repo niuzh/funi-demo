@@ -17,7 +17,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setHeader("Cache-Control", "no-cache, must-revalidate");
         try {
-            //todo Òì³£´¦Àí
+            //todo ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
             /*RestException exception = new RestException(e.getMessage(), getExceptionStackTrace(e));
 
             httpServletResponse.getWriter().write(Serializer.json().serialize(new RestResult(false, exception)));*/

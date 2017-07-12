@@ -12,6 +12,7 @@
         <module>funi-demo-services</module>
         <module>funi-demo-web</module>
         <module>funi-demo-mbg</module>
+        <module>funi-demo-web-provider</module>
     </modules>
     <properties>
         <project.version>1.0-SNAPSHOT</project.version>
@@ -121,6 +122,28 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.9.4</version>
+        </dependency>
+        <!--dubbo zookeeper-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.1</version>
         </dependency>
     </dependencies>
     <build>

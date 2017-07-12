@@ -21,7 +21,7 @@
     <!--扫描dao类包，应用Spring的注解配置-->
     <context:component-scan base-package="com.funi.demo.*.dao"/>
     <!--扫描service类包，应用Spring的注解配置-->
-    <context:component-scan base-package="com.funi.demo.service.impl"/>
+    <context:component-scan base-package="com.funi.demo.**.service.impl"/>
     <!--数据源-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
@@ -76,10 +76,9 @@
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="cacheSeconds" value="5"/>
     </bean>
-
-    <dubbo:application name="dubbo_consumer"></dubbo:application>
+    <dubbo:application name="dubbo_provider"></dubbo:application>
     <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry protocol="zookeeper" address="192.168.3.122:2181" check="false"></dubbo:registry>
-    <!-- 要引用的服务 -->
-    <dubbo:reference interface="com.funi.demo.service.IAppInvocationRegistryService" id="testRegistryService"></dubbo:reference>
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1" port="2181" check="false" subscribe="false" register=""></dubbo:registry>
+    <!-- 要暴露的服务接口 -->
+    <dubbo:service interface="com.funi.demo.service.IAppInvocationRegistryService" ref="testRegistryService" />
 </beans>
