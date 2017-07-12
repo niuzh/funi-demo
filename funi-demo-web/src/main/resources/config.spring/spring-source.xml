@@ -5,6 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                      http://www.springframework.org/schema/beans/spring-beans.xsd
                      http://www.springframework.org/schema/context
@@ -12,7 +13,9 @@
                      http://www.springframework.org/schema/tx
                      http://www.springframework.org/schema/tx/spring-tx.xsd
                      http://www.springframework.org/schema/aop
-                     http://www.springframework.org/schema/aop/spring-aop.xsd">
+                     http://www.springframework.org/schema/aop/spring-aop.xsd
+                     http://code.alibabatech.com/schema/dubbo
+                     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <!--引入属性文件-->
     <context:property-placeholder location="classpath:resources.properties" ignore-unresolvable="true"/>
     <!--扫描dao类包，应用Spring的注解配置-->
@@ -73,4 +76,9 @@
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="cacheSeconds" value="5"/>
     </bean>
+    <dubbo:application name="dubbo_provider"></dubbo:application>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false" register=""></dubbo:registry>
+    <!-- 要暴露的服务接口 -->
+    <dubbo:service interface="com.funi.demo.service.ITestRegistryService" ref="testRegistryService" />
 </beans>
