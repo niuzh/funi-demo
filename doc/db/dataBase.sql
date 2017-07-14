@@ -7,6 +7,17 @@ create user 'demo'@'%' identified by 'Niu*2017';
 grant all on *.* to 'demo'@'%';
 #新用户的登陆
 mysql -udemo -pNiu*2017
+#配置数据源
+在tomcate>conf>context.xml>Context 节点下新增如下数据源
+<Resource name="jdbc/demoDB" auth="Container"
+type="javax.sql.DataSource"
+driverClassName="com.mysql.jdbc.Driver"
+url="jdbc:mysql://localhost:3306/demo"
+username="demo"
+password="Niu*2017"
+maxActive="50"
+maxIdle="30"
+maxWait="10000"/>
 #新增数据库
 DROP DATABASE if EXISTS demo;
 CREATE DATABASE demo DEFAULT CHARACTER SET utf8;
