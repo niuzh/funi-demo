@@ -3,6 +3,8 @@ package com.funi.demo.web.controller;
 import com.alibaba.dubbo.common.json.JSON;
 import com.funi.demo.service.IAppInvocationRegistryService;
 import com.funi.demo.supports.AppInvocationResult;
+import com.funi.demo.utils.AppContainersUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,8 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class TestController {
-    @Resource
-    private IAppInvocationRegistryService appInvocationRegistryService;
+    //@Resource
+    //private IAppInvocationRegistryService appInvocationRegistryService;
+
     @RequestMapping("/test")
     @ResponseBody
     public String test(HttpServletRequest request,HttpServletResponse response) throws Exception{
@@ -30,8 +33,10 @@ public class TestController {
         writer.append("niu");
         writer.flush();
         writer.close();*/
-        AppInvocationResult result= appInvocationRegistryService.invoke("userService.findUserByUserName","admin");
+        /*AppInvocationResult result= appInvocationRegistryService.invoke("userService.findUserByUserName","admin");
         String returnTxt=result.getData();
-        return returnTxt;
+        return returnTxt;*/
+        String debug=AppContainersUtils.readEnvironment("debug");
+        return debug;
     }
 }

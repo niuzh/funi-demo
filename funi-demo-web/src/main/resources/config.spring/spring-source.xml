@@ -77,9 +77,9 @@
         <property name="cacheSeconds" value="5"/>
     </bean>
 
-    <dubbo:application name="dubbo_consumer"></dubbo:application>
-    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <!--<dubbo:application name="dubbo_consumer"></dubbo:application>
+    &lt;!&ndash; 使用zookeeper注册中心暴露服务地址 &ndash;&gt;
     <dubbo:registry protocol="zookeeper" address="127.0.0.1" port="2181" check="false"></dubbo:registry>
-    <!-- 要引用的服务 -->
-    <dubbo:reference interface="com.funi.demo.service.IAppInvocationRegistryService" id="testRegistryService"></dubbo:reference>
+    &lt;!&ndash; 要引用的服务 &ndash;&gt;
+    <dubbo:reference interface="com.funi.demo.service.IAppInvocationRegistryService" id="testRegistryService"></dubbo:reference>-->
 </beans>
